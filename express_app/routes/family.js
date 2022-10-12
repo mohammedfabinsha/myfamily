@@ -14,7 +14,6 @@ router.post("/create", (req, res) => {
 });
 
 router.put("/update", (req, res) => {
-    s
     res.send("familyUpdated")
 });
 
