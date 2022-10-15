@@ -1,11 +1,13 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite", {
+const sequelize = new Sequelize("sqlite:./sqlite.db", {
+    dialect: "sqlite",
     storage: "./sqlite.db"
 });
 
 const User = sequelize.define("User", {
     id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     firstName: {
@@ -15,19 +17,19 @@ const User = sequelize.define("User", {
     lastName: {
         type: DataTypes.STRING,
     },
-    email: {
+    emailId: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false
     }
-})
+});
 
-sequelize.sync()
+(async () => { await sequelize.sync() })()
+
 module.exports = {
     User
-
 } 
