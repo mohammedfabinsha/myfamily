@@ -1,6 +1,7 @@
 const { MyFamilyError, DetailMissingError } = require("../errors")
 
 
+
 class EmailFormatError extends MyFamilyError {
     constructor(message) {
         super(message);
@@ -29,12 +30,33 @@ class WeakPasswordError extends MyFamilyError {
     }
 }
 
+class EmailNotFoundError extends MyFamilyError {
+    constructor(message) {
+        super(message);
+        this.name = "EMAIL_NOT_FOUND";
+        this.http_status_code = 400;
+        this.message = "Please provide a valid email"
+    }
+
+}
+class IncorrectPasswordError extends MyFamilyError {
+    constructor(message) {
+        super(message);
+        this.name = "INCORRECT_PASSWORD";
+        this.http_status_code = 400;
+        this.message = "IncorrectPassword"
+    }
+
+}
+
 
 module.exports = {
     MyFamilyError,
     WeakPasswordError,
     DetailMissingError,
     EmailFormatError,
-    EmailRepetitionError
+    EmailRepetitionError,
+    EmailNotFoundError,
+    IncorrectPasswordError
 
 }
