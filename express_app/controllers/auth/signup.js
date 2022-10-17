@@ -1,5 +1,6 @@
 const { User } = require("../../models");
 const { WeakPasswordError, DetailMissingError, EmailFormatError, EmailRepetitionError } = require("./errors")
+const { getUserByEmail, makeJWTToken } = require("./utils")
 
 
 
@@ -10,18 +11,22 @@ module.exports = async function (data) {
     if (!EmailValidationStatus(data.emailId)) {
         throw new EmailFormatError();
     }
-    if (await EmailRepetitionStatus(data.emailId)) {
+    if (await getUserByEmail(data.emailId)) {
         throw new EmailRepetitionError();
     }
     if (!meetsPasswordStrength(data.password)) {
         throw new WeakPasswordError();
     }
 
-
-
     const user = User.build(data);
     await user.save()
-    return user;
+
+    const token = await makeJWTToken(user)
+    return {
+        id: user.id,
+        firstName: user.firstName,
+        token,
+    };
 }
 function EmailValidationStatus(emailId) {
     const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
@@ -33,14 +38,7 @@ function EmailValidationStatus(emailId) {
     }
 }
 
-async function EmailRepetitionStatus(emailId) {
-    const emailExist = await User.findOne({ where: { emailId: emailId } })
-    if (emailExist) {
-        return true;
-    } else {
-        return false;
-    }
-}
+
 
 function meetsPasswordStrength(password) {
     const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
