@@ -1,25 +1,62 @@
 const express = require('express')
+// const { authMiddleware } = require("../middlewares")
+const familyController = require("../controllers/family")
+
 const router = express.Router()
+// router.use(authMiddleware);
 
-router.get("/list", (req, res) => {
-    res.send("listFamilies")
+
+router.get("/", (req, res) => {
+    familyController.list(req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            if (err instanceof MyFamilyError) {
+                res.status(err.http_status_code);
+                res.send({
+                    error_code: err.name,
+                    message: err.message,
+                    data: {}
+                })
+            } else {
+                res.status(500);
+                res.send(err);
+            }
+        });
 });
 
-router.get("/getSingle", (req, res) => {
-    res.send("showFamily")
+router.get("/:id", (req, res) => {
+    familyController.getSingle(req.body)
 });
 
-router.post("/create", (req, res) => {
-    res.send("familyCreated")
+router.post("/ad", (req, res) => {
+    familyController.create(req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            if (err instanceof MyFamilyError) {
+                res.status(err.http_status_code);
+                res.send({
+                    error_code: err.name,
+                    message: err.message,
+                    data: {}
+                })
+            } else {
+                res.status(500);
+                res.send(err);
+            }
+        });
 });
 
-router.put("/update", (req, res) => {
-    res.send("familyUpdated")
+router.put("/:id", (req, res) => {
+    familyController.update(req.body)
 });
 
-router.delete("/delete", (req, res) => {
-    res.send("FamilyDeleted")
+router.delete("/:id", (req, res) => {
+    familyController.delete(req.body)
 });
 
 
-module.exports = router
+module.exports = router 
