@@ -28,7 +28,7 @@ const User = sequelize.define("User", {
     }
 });
 
-const Family = sequelize.define("family", {
+const Family = sequelize.define("Family", {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,

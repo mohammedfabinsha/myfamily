@@ -4,7 +4,7 @@ const familyController = require("../controllers/family")
 
 const router = express.Router()
 // router.use(authMiddleware);
-
+const { MyFamilyError } = require("../controllers/errors")
 
 router.get("/", (req, res) => {
     familyController.list(req.body)
