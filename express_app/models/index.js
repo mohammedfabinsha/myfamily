@@ -38,7 +38,7 @@ const Family = sequelize.define("Family", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    description: {
+    address: {
         type: DataTypes.STRING
     }
 });

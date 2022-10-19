@@ -30,7 +30,7 @@ router.get("/:id", (req, res) => {
     familyController.getSingle(req.body)
 });
 
-router.post("/ad", (req, res) => {
+router.post("/", (req, res) => {
     familyController.create(req.body)
         .then(data => {
             res.send(data);
