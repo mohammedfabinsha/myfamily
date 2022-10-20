@@ -15,11 +15,13 @@ module.exports = async function (data) {
     }
 
     const token = await makeJWTToken(user);
+
     return {
         user: user.id,
         firstName: user.firstName,
         token,
     }
 }
+
 
 

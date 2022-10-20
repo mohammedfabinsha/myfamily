@@ -28,8 +28,23 @@ const User = sequelize.define("User", {
     }
 });
 
+const Family = sequelize.define("Family", {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+    },
+    familyName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING
+    }
+});
 (async () => { await sequelize.sync() })()
 
 module.exports = {
-    User
+    User,
+    Family
 } 

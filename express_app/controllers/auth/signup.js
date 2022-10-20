@@ -22,6 +22,7 @@ module.exports = async function (data) {
     await user.save()
 
     const token = await makeJWTToken(user)
+
     return {
         id: user.id,
         firstName: user.firstName,
