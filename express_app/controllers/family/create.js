@@ -2,7 +2,7 @@ const { Family } = require("../../models")
 const { DetailMissingError } = require("./error")
 
 module.exports = async function (data) {
-    if (!["familyName", "address"].every(x => data[x])) {
+    if (!["familyName", "description"].every(x => data[x])) {
         throw new DetailMissingError();
     }
 

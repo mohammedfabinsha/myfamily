@@ -28,6 +28,22 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
     familyController.getSingle(req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            if (err instanceof MyFamilyError) {
+                res.status(err.http_status_code);
+                res.send({
+                    error_code: err.name,
+                    message: err.message,
+                    data: {}
+                })
+            } else {
+                res.status(500);
+                res.send(err);
+            }
+        });
 });
 
 router.post("/", (req, res) => {
@@ -52,10 +68,43 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
     familyController.update(req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            if (err instanceof MyFamilyError) {
+                res.status(err.http_status_code);
+                res.send({
+                    error_code: err.name,
+                    message: err.message,
+                    data: {}
+                })
+            } else {
+                res.status(500);
+                res.send(err);
+            }
+        });
 });
+
 
 router.delete("/:id", (req, res) => {
     familyController.delete(req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            if (err instanceof MyFamilyError) {
+                res.status(err.http_status_code);
+                res.send({
+                    error_code: err.name,
+                    message: err.message,
+                    data: {}
+                })
+            } else {
+                res.status(500);
+                res.send(err);
+            }
+        });
 });
 
 
