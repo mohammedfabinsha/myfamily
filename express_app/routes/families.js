@@ -1,6 +1,6 @@
 const express = require('express')
 // const { authMiddleware } = require("../middlewares")
-const familyController = require("../controllers/family")
+const familyController = require("../controllers/families")
 
 const router = express.Router()
 // router.use(authMiddleware);
