@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-    familyController.getSingle(req.body)
+    familyController.getSingle(req.params.id)
         .then(data => {
             res.send(data);
         })
@@ -67,7 +67,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-    familyController.update(req.body)
+    familyController.update(req.params.id, req.body)
         .then(data => {
             res.send(data);
         })
@@ -88,7 +88,7 @@ router.put("/:id", (req, res) => {
 
 
 router.delete("/:id", (req, res) => {
-    familyController.delete(req.body)
+    familyController.delete(req.params.id)
         .then(data => {
             res.send(data);
         })
